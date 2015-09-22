@@ -1,11 +1,12 @@
 {
   "name": "express-router-loader",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "載入所有指定資料夾中的Router",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "mosluce@gmail.com",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": "https://github.com/mosluce/express-router-loader.git"
 }
