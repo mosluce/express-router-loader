@@ -5,7 +5,7 @@ var path = require('path');
 var fs = require('fs');
 var Promise = require('bluebird');
 
-module.exports = function (dir) {
+function createRouter(dir) {
     var express = require('express');
     var router = express.Router();
 
@@ -15,7 +15,16 @@ module.exports = function (dir) {
         var file = files[i];
 
         if (file === 'index.js') continue;
-        if (!/\.js$/.test(file)) continue;
+        if (!/\.js$/.test(file)) {
+            var nextlv = path.join(dir, file);
+            var stat = fs.stat(nextlv);
+
+            if (stat.isDirectory()) {
+                router.use('/' + file, createRouter(nextlv));
+            }
+
+            continue;
+        }
 
         var r = require(path.join(dir, file));
         var n = '/' + file.replace(/\.js$/, '');
@@ -24,4 +33,6 @@ module.exports = function (dir) {
     }
 
     return router;
-};
+}
+
+module.exports = createRouter;
