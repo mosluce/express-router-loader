@@ -16,7 +16,7 @@ function createRouter(dir) {
         if (file === 'index.js') continue;
         if (!/\.js$/.test(file)) {
             var nextlv = path.join(dir, file);
-            var stat = fs.stat(nextlv);
+            var stat = fs.statSync(nextlv);
 
             if (stat.isDirectory()) {
                 router.use('/' + file, createRouter(nextlv));
