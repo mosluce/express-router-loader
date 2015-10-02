@@ -3,7 +3,6 @@
  */
 var path = require('path');
 var fs = require('fs');
-var Promise = require('bluebird');
 
 function createRouter(dir) {
     var express = require('express');
