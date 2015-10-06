@@ -4,10 +4,7 @@
 var path = require('path');
 var fs = require('fs');
 
-function createRouter(dir) {
-    var express = require('express');
-    var router = express.Router();
-
+function createRouter(router, dir, prefix) {
     var files = fs.readdirSync(dir);
 
     for (var i in files) {
@@ -15,18 +12,19 @@ function createRouter(dir) {
 
         if (file === 'index.js') continue;
         if (!/\.js$/.test(file)) {
+
             var nextlv = path.join(dir, file);
             var stat = fs.statSync(nextlv);
 
             if (stat.isDirectory()) {
-                router.use('/' + file, createRouter(nextlv));
+                createRouter(router, path.join(dir, file), (prefix || '') + '/' + file);
             }
 
             continue;
         }
 
         var r = require(path.join(dir, file));
-        var n = '/' + file.replace(/\.js$/, '');
+        var n = (prefix || '') + '/' + file.replace(/\.js$/, '');
 
         router.use(n, r);
     }

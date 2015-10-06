@@ -1,6 +1,6 @@
 {
   "name": "express-router-loader",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "載入所有指定資料夾中的Router",
   "main": "index.js",
   "scripts": {
